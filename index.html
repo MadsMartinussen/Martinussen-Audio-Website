@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Martinussen Audio — Amplifying Emotions with Sound</title>
+    <meta
+      name="description"
+      content="Portfolio of Mads Martinussen — composer, sound designer, and musician."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=Figtree:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header" id="site-header">
+      <a class="site-name" href="#top">Martinussen Audio</a>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+      >
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="visually-hidden">Menu</span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary">
+        <a href="#portfolio">Portfolio</a>
+        <a href="#about">About</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="top" aria-label="Introduction">
+      <div class="hero-media" role="img" aria-label="Mads Martinussen at the keys in the studio"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-copy">
+        <h1>Martinussen Audio</h1>
+        <h2>Amplifying Emotions with Sound</h2>
+      </div>
+    </section>
+
+    <main>
+      <section class="section portfolio" id="portfolio">
+        <div class="section-inner">
+          <p class="eyebrow">Selected work</p>
+          <h2 class="section-title">Portfolio</h2>
+          <div class="filters" role="group" aria-label="Filter projects by tag">
+            <button class="filter-chip is-active" type="button" data-filter="All" aria-pressed="true">
+              All
+            </button>
+            <button class="filter-chip" type="button" data-filter="Music" aria-pressed="false">Music</button>
+            <button class="filter-chip" type="button" data-filter="SFX" aria-pressed="false">SFX</button>
+            <button class="filter-chip" type="button" data-filter="Game Audio" aria-pressed="false">
+              Game Audio
+            </button>
+            <button class="filter-chip" type="button" data-filter="Mix" aria-pressed="false">Mix</button>
+            <button class="filter-chip" type="button" data-filter="Master" aria-pressed="false">Master</button>
+            <button class="filter-chip" type="button" data-filter="Recording" aria-pressed="false">
+              Recording
+            </button>
+            <button class="filter-chip" type="button" data-filter="Production" aria-pressed="false">
+              Production
+            </button>
+          </div>
+          <div class="project-grid" id="project-grid"></div>
+          <p class="grid-empty" id="grid-empty" hidden>No projects match this combination of tags.</p>
+        </div>
+      </section>
+
+      <section class="section about" id="about">
+        <div class="section-inner about-inner">
+          <p class="eyebrow">About Mads</p>
+          <h2 class="section-title">About</h2>
+          <div class="about-copy">
+            <p>
+              Mads Martinussen has been writing, performing, composing, and designing
+              audio for more than a decade. For the last five years, modern electronic
+              production has taken the forefront of his professional portfolio.
+            </p>
+            <p>
+              That work includes more than 20 released games with Mads solely in charge
+              of the audio vision. He has written in over ten different musical styles
+              and released on platforms in three countries. Sound effects and music
+              composition are tailored to fit together — and to reach the heartstrings
+              of the audience.
+            </p>
+            <p>
+              He has been returning to the stage with his party band and solo act, and
+              teaching workshops that help musicians and producers close the gap between
+              traditional composition and the interactive nature of game development.
+            </p>
+          </div>
+          <div class="about-actions">
+            <a class="button" href="mailto:hello@martinussen-audio.com">Email Mads</a>
+            <ul class="socials">
+              <li>
+                <a href="https://www.instagram.com/martinussen_audio/" target="_blank" rel="noopener noreferrer">Instagram</a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/in/martinussen-audio/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/profile.php?id=100086032988039" target="_blank" rel="noopener noreferrer">Facebook</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© <span id="year"></span> Martinussen Audio</p>
+    </footer>
+
+    <div
+      class="overlay"
+      id="project-overlay"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="overlay-title"
+    >
+      <div class="overlay-backdrop" data-overlay-close></div>
+      <div class="overlay-panel">
+        <button class="overlay-close" type="button" data-overlay-close aria-label="Close project">
+          <span aria-hidden="true">×</span>
+        </button>
+        <div class="overlay-body" id="overlay-body"></div>
+      </div>
+    </div>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

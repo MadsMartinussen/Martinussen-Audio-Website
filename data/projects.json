@@ -1,0 +1,28 @@
+[
+  {
+    "id": "game-audio-reel",
+    "slug": "game-audio-reel",
+    "title": "Game Audio Reel",
+    "summary": "Placeholder reel for interactive music, implemented SFX, and in-game mix.",
+    "body": "<p>Placeholder project so the grid, filters, and overlay can be tested. Replace this entry after the first Drive import.</p><p>Typical deliverables: interactive music beds, implemented sound effects, and a mix that leaves room for UI and dialogue.</p>",
+    "tags": ["Game Audio", "SFX", "Music"],
+    "order": 1,
+    "cover": "assets/projects/game-audio-reel/cover.jpg",
+    "images": ["assets/projects/game-audio-reel/still-1.jpg"],
+    "videos": ["https://www.youtube.com/watch?v=MtfNp7j66Uc"],
+    "audio": []
+  },
+  {
+    "id": "studio-session",
+    "slug": "studio-session",
+    "title": "Studio Session",
+    "summary": "Placeholder for recording, production, mix, and master work from the studio.",
+    "body": "<p>Placeholder project covering tracking through a finished master. Swap in a real session from Google Drive when ready.</p><p>The short audio clip is a generated stand-in so the overlay player can be checked.</p>",
+    "tags": ["Recording", "Production", "Mix", "Master"],
+    "order": 2,
+    "cover": "assets/projects/studio-session/cover.png",
+    "images": ["assets/projects/studio-session/still-1.png"],
+    "videos": [],
+    "audio": ["assets/projects/studio-session/excerpt.wav"]
+  }
+]
