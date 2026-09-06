@@ -1,6 +1,6 @@
 # Project template
 
-Copy this structure into a Google Doc (one Doc per project). Keep the field labels on their own lines. The Drive import skill maps them into `data/projects.json`.
+Copy this structure into a Google Doc (one Doc per project). Keep the field labels on their own lines. The Drive import skill maps them into `Martinussen Audio Website/data/projects.json`. Paths stored in JSON (`assets/projects/<slug>/…`) are relative to that site folder, not the repo root.
 
 ```
 Title:
@@ -41,8 +41,8 @@ excerpt.mp3
 | Order | `order` | Yes | Number. Lower appears first in the default grid. |
 | Tags | `tags` | Yes | Comma-separated. Allowed values only: `Music`, `SFX`, `Game Audio`, `Mix`, `Master`, `Recording`, `Production`. |
 | Summary | `summary` | Yes | 1–2 sentences on the card. |
-| Body | `body` | Yes | Overlay copy. Plain paragraphs or light HTML (`<p>`). |
-| Cover | `cover` | Yes | File name in the project’s Drive folder, or an image embedded in the Doc. Saved to `assets/projects/<slug>/`. |
+| Body | `body` | Yes | Overlay copy. Plain paragraphs (blank line between them). Do not put HTML in the Doc. |
+| Cover | `cover` | Yes | File name in the project’s Drive folder, or an image embedded in the Doc. Saved under the site folder as `assets/projects/<slug>/`. |
 | Images | `images` | No | Extra stills. One file name or URL per line. |
 | Videos | `videos` | No | Local file name **or** YouTube / Vimeo URL. One per line. Prefer links for long video (GitHub file limit is 100MB). |
 | Audio | `audio` | No | Local `mp3` / `wav` / `aac`. Prefer compressed MP3. One per line. |

@@ -36,10 +36,52 @@
   function isSafeUrl(url) {
     try {
       const parsed = new URL(url, window.location.href);
-      return ["http:", "https:", "blob:", "data:"].includes(parsed.protocol);
+      return parsed.protocol === "http:" || parsed.protocol === "https:";
     } catch {
       return false;
     }
+  }
+
+  function isSafeMediaSrc(url) {
+    const value = String(url || "").trim();
+    if (!value || value.includes("..")) return false;
+    if (value.startsWith("assets/")) return true;
+    return isSafeUrl(value);
+  }
+
+  const ALLOWED_BODY_TAGS = new Set(["P", "BR", "EM", "STRONG", "I", "B"]);
+
+  function sanitizeBodyHtml(html) {
+    const template = document.createElement("template");
+    template.innerHTML = html;
+
+    function visit(parent) {
+      let i = 0;
+      while (i < parent.childNodes.length) {
+        const child = parent.childNodes[i];
+        if (child.nodeType === Node.TEXT_NODE) {
+          i += 1;
+          continue;
+        }
+        if (child.nodeType !== Node.ELEMENT_NODE) {
+          child.remove();
+          continue;
+        }
+        if (!ALLOWED_BODY_TAGS.has(child.tagName)) {
+          while (child.firstChild) parent.insertBefore(child.firstChild, child);
+          child.remove();
+          continue;
+        }
+        while (child.attributes.length) {
+          child.removeAttribute(child.attributes[0].name);
+        }
+        visit(child);
+        i += 1;
+      }
+    }
+
+    visit(template.content);
+    return template.innerHTML;
   }
 
   function youtubeId(url) {
@@ -114,7 +156,7 @@
       card.dataset.slug = project.slug;
       card.setAttribute("aria-label", "Open project: " + project.title);
 
-      const cover = project.cover
+      const cover = isSafeMediaSrc(project.cover)
         ? `<img class="project-card-cover" src="${escapeHtml(project.cover)}" alt="" />`
         : `<div class="project-card-cover" aria-hidden="true"></div>`;
 
@@ -164,7 +206,7 @@
 
   function renderBody(body) {
     if (!body) return "";
-    if (/<[a-z][\s\S]*>/i.test(body)) return body;
+    if (/<[a-z][\s\S]*>/i.test(body)) return sanitizeBodyHtml(body);
     return String(body)
       .split(/\n{2,}/)
       .map((part) => `<p>${escapeHtml(part.trim()).replace(/\n/g, "<br>")}</p>`)
@@ -185,7 +227,7 @@
         if (vimeo) {
           return `<iframe class="video-frame" src="https://player.vimeo.com/video/${vimeo}" title="Vimeo video" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
         }
-        if (!isSafeUrl(url) && !url.startsWith("assets/")) return "";
+        if (!isSafeMediaSrc(url)) return "";
         return `<video controls preload="metadata" src="${escapeHtml(url)}"></video>`;
       })
       .filter(Boolean)
@@ -196,8 +238,10 @@
   function renderImages(images) {
     if (!images || !images.length) return "";
     const figs = images
+      .filter((src) => isSafeMediaSrc(src))
       .map((src) => `<img src="${escapeHtml(src)}" alt="" />`)
       .join("");
+    if (!figs) return "";
     return `<div class="media-block"><h3>Images</h3><div class="image-gallery">${figs}</div></div>`;
   }
 
@@ -206,11 +250,13 @@
     const players = audio
       .map((src) => {
         const path = typeof src === "string" ? src : src.src || "";
+        if (!isSafeMediaSrc(path)) return "";
         const label = typeof src === "object" && src.title ? escapeHtml(src.title) : "";
         return `<div class="audio-item">${label ? `<p>${label}</p>` : ""}<audio controls preload="metadata" src="${escapeHtml(path)}"></audio></div>`;
       })
+      .filter(Boolean)
       .join("");
-    return `<div class="media-block"><h3>Audio</h3>${players}</div>`;
+    return players ? `<div class="media-block"><h3>Audio</h3>${players}</div>` : "";
   }
 
   function findProject(slug) {
@@ -322,7 +368,7 @@
       const protocol = window.location.protocol;
       if (protocol === "file:") {
         showLoadError(
-          "This page needs a local server so project data can load. From the project folder run: python3 -m http.server 8080 — then open http://localhost:8080"
+          'This page needs a local server so project data can load. From a terminal run: cd "Martinussen Audio Website" && python3 -m http.server 8080 — then open http://localhost:8080'
         );
       } else {
         showLoadError("Projects could not be loaded. Check data/projects.json.");
